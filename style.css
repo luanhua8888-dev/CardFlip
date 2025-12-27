@@ -577,7 +577,7 @@ body.mini-active {
     /* Đen sâu để tiết kiệm pin và tập trung */
 }
 
-body.mini-active .glass-header {
+body.mini-active .smart-toolbar {
     background: #111;
     padding: 2px 5px;
     border: none;
@@ -585,11 +585,29 @@ body.mini-active .glass-header {
 }
 
 body.mini-active .logo-area,
-body.mini-active label,
 body.mini-active .btn-reset span.icon+span,
 /* Ẩn chữ trên nút, chỉ để icon */
 body.mini-active .pro-badge {
     display: none !important;
+}
+
+body.mini-active .stepper-val span:not(#val-rows):not(#val-cols),
+body.mini-active .visitor-counter .icon+span {
+    display: none;
+}
+
+body.mini-active .stepper-val {
+    min-width: 30px;
+}
+
+body.mini-active .action-group {
+    gap: 4px;
+}
+
+body.mini-active .tool-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 1rem;
 }
 
 body.mini-active .controls-area {

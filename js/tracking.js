@@ -8,8 +8,9 @@ async function trackPageView() {
     if (!supabase) return;
 
     try {
+        console.log('Đang thử kết nối Supabase...');
         // 1. Lưu lượt truy cập mới
-        await supabase
+        const { error: insertError } = await supabase
             .from('page_views')
             .insert([
                 {
@@ -19,17 +20,24 @@ async function trackPageView() {
                 }
             ]);
 
+        if (insertError) {
+            console.error('Lỗi khi lưu lượt truy cập:', insertError.message);
+        }
+
         // 2. Lấy TỔNG số lượng lượt truy cập từ bảng
-        const { count, error } = await supabase
+        const { count, error: countError } = await supabase
             .from('page_views')
             .select('*', { count: 'exact', head: true });
 
-        if (!error && count !== null) {
+        if (countError) {
+            console.error('Lỗi khi đếm lượt truy cập:', countError.message);
+        } else if (count !== null) {
+            console.log('Tổng lượt truy cập hiện tại:', count);
             document.getElementById('visit-count').textContent = count;
         }
 
     } catch (err) {
-        console.error('Database connection failed:', err);
+        console.error('Không thể kết nối cơ sở dữ liệu:', err);
     }
 }
 
