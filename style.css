@@ -525,46 +525,68 @@ body {
     }
 }
 
-/* Mini Mode Styles */
+/* --- ULTRA COMPACT PRO (Mini Mode) --- */
 body.mini-active {
-    background: rgba(11, 15, 25, 0.98);
+    background: #000;
+    /* Đen sâu để tiết kiệm pin và tập trung */
 }
 
 body.mini-active .glass-header {
-    padding: 5px;
-    flex-direction: row !important;
-    justify-content: center;
+    background: #111;
+    padding: 2px 5px;
+    border: none;
+    min-height: 40px;
 }
 
 body.mini-active .logo-area,
-body.mini-active .input-field label,
-body.mini-active .pro-badge,
-body.mini-active #manage-icons-btn {
+body.mini-active label,
+body.mini-active .btn-reset span.icon+span,
+/* Ẩn chữ trên nút, chỉ để icon */
+body.mini-active .pro-badge {
     display: none !important;
 }
 
 body.mini-active .controls-area {
-    gap: 8px;
-    width: auto;
+    width: 100%;
+    justify-content: space-between;
+    padding: 0 5px;
+}
+
+body.mini-active .input-field input {
+    width: 40px;
+    height: 30px;
+    font-size: 0.8rem;
+    background: #222;
 }
 
 body.mini-active #game-board {
-    padding: 5px;
-    gap: 4px;
+    padding: 3px;
+    gap: 3px;
+    align-content: stretch;
 }
 
 body.mini-active .card {
-    border-radius: 6px;
-    aspect-ratio: 1/1;
+    border-radius: 4px;
+    border: 1px solid #00f2fe;
+    background: #0a0a0a;
 }
 
 body.mini-active .card-num {
-    font-size: 0.5rem;
-    top: 2px;
-    left: 4px;
+    font-size: 1.2rem;
+    /* Rất to để nhìn từ xa */
+    font-weight: 900;
+    color: #00f2fe;
+    text-shadow: 0 0 10px rgba(0, 242, 254, 0.5);
 }
 
-body.mini-active .card-icon {
-    width: 90%;
-    height: 90%;
+body.mini-active .type-selector-panel {
+    width: 98vw !important;
+    left: 1vw !important;
+    bottom: 5px;
+    grid-template-columns: repeat(5, 1fr);
+    background: rgba(0, 0, 0, 0.95);
+}
+
+body.mini-active .type-option {
+    height: 55px;
 }

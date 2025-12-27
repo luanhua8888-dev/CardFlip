@@ -32,7 +32,10 @@
                 <button id="manage-icons-btn" class="btn-reset">
                     <span class="icon">🎨</span> Card
                 </button>
-                <button id="pip-mode-btn" class="btn-reset" title="Bong bóng nổi (PiP)">
+                <button id="help-btn" class="btn-reset" title="Cách làm bong bóng">
+                    <span class="icon">❓</span>
+                </button>
+                <button id="pip-mode-btn" class="btn-reset" title="Chế độ chỉ xem (PiP)">
                     <span class="icon">📺</span>
                 </button>
                 <button id="mini-mode-btn" class="btn-reset" title="Chế độ bong bóng">
@@ -43,6 +46,25 @@
                 </button>
             </div>
         </header>
+
+        <!-- Guide Modal for Floating Window -->
+        <div id="guide-modal" class="overlay hidden">
+            <div class="match-glass-box icon-manager">
+                <h2>CÁCH CHỌN KHI ĐANG CHƠI</h2>
+                <div class="guide-content">
+                    <p>Để vừa bấm được Tool vừa chơi Game, hãy dùng <b>CỬA SỔ NỔI</b>:</p>
+                    <ol style="text-align: left; margin: 15px 0; padding-left: 20px; font-size: 0.9rem;">
+                        <li>Nhấn nút <b>🫧 Bong Bóng</b> trên Tool.</li>
+                        <li>Vuốt đa nhiệm (xem các app đang chạy).</li>
+                        <li><b>Nhấn giữ icon Trình duyệt</b> (Chrome).</li>
+                        <li>Chọn <b>"Mở ở dạng cửa sổ nổi"</b>.</li>
+                    </ol>
+                    <p style="color: var(--primary); font-size: 0.8rem;">Tool sẽ hiện lơ lửng và cho phép bạn BẤM bình
+                        thường!</p>
+                </div>
+                <button id="close-guide" class="btn-confirm">ĐÃ HIỂU</button>
+            </div>
+        </div>
 
         <!-- Dynamic Modal for Icon Management -->
         <div id="icon-modal" class="overlay hidden">

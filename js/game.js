@@ -261,6 +261,11 @@ function setupEvents() {
 
     document.getElementById('confirm-match').onclick = confirmMatch;
 
+    // --- Guide Events ---
+    const guideModal = document.getElementById('guide-modal');
+    document.getElementById('help-btn').onclick = () => guideModal.classList.remove('hidden');
+    document.getElementById('close-guide').onclick = () => guideModal.classList.add('hidden');
+
     // --- Icon Manager Events ---
     const iconModal = document.getElementById('icon-modal');
     document.getElementById('manage-icons-btn').onclick = () => {
