@@ -2,15 +2,18 @@
 const SUPABASE_URL = 'https://ldgfmioulzblgkvsvoen.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_BZq1QTmrxVXfiSi4fds6NA_xKswwo9A';
 
-const supabase = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY) : null;
+const supabaseClient = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY) : null;
 
 async function trackPageView() {
-    if (!supabase) return;
+    if (!supabaseClient) {
+        console.error('Supabase library not loaded!');
+        return;
+    }
 
     try {
         console.log('Đang thử kết nối Supabase...');
         // 1. Lưu lượt truy cập mới
-        const { error: insertError } = await supabase
+        const { error: insertError } = await supabaseClient
             .from('page_views')
             .insert([
                 {
@@ -25,7 +28,7 @@ async function trackPageView() {
         }
 
         // 2. Lấy TỔNG số lượng lượt truy cập từ bảng
-        const { count, error: countError } = await supabase
+        const { count, error: countError } = await supabaseClient
             .from('page_views')
             .select('*', { count: 'exact', head: true });
 
