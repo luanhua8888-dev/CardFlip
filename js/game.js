@@ -107,6 +107,16 @@ let currentRows = 2;
 let currentCols = 5;
 let pendingMatch = null; // [index1, index2]
 
+function changeGrid(type, delta) {
+    if (type === 'rows') {
+        currentRows = Math.max(1, Math.min(10, currentRows + delta));
+    } else {
+        currentCols = Math.max(1, Math.min(10, currentCols + delta));
+    }
+    manualData = {}; // Reset data when grid changes
+    setupBoard();
+}
+
 function init() {
     loadIcons();
     setupBoard();
@@ -114,15 +124,14 @@ function init() {
 }
 
 function setupBoard() {
-    const rInput = document.getElementById('grid-rows');
-    const cInput = document.getElementById('grid-cols');
-    currentRows = parseInt(rInput.value) || 2;
-    currentCols = parseInt(cInput.value) || 5;
-
     const board = document.getElementById('game-board');
     board.style.setProperty('--rows', currentRows);
     board.style.setProperty('--cols', currentCols);
     board.innerHTML = '';
+
+    // Cập nhật hiển thị số trên toolbar
+    document.getElementById('val-rows').textContent = currentRows;
+    document.getElementById('val-cols').textContent = currentCols;
 
     const total = currentRows * currentCols;
     for (let i = 0; i < total; i++) {
@@ -225,6 +234,17 @@ function showMatchSequence(idx1, idx2) {
     }, 600);
 }
 
+function cancelMatch() {
+    if (pendingMatch) {
+        const [i1, i2] = pendingMatch;
+        const cards = document.querySelectorAll('.card');
+        cards[i1].classList.remove('matched-animation');
+        cards[i2].classList.remove('matched-animation');
+        pendingMatch = null;
+    }
+    document.getElementById('match-overlay').classList.add('hidden');
+}
+
 function confirmMatch() {
     if (pendingMatch) {
         const [i1, i2] = pendingMatch;
@@ -246,12 +266,6 @@ function confirmMatch() {
 }
 
 function setupEvents() {
-    const rInput = document.getElementById('grid-rows');
-    const cInput = document.getElementById('grid-cols');
-
-    rInput.onchange = () => { manualData = {}; setupBoard(); };
-    cInput.onchange = () => { manualData = {}; setupBoard(); };
-
     document.getElementById('global-reset').onclick = () => {
         if (confirm("Bạn muốn xóa toàn bộ dữ liệu bàn bài?")) {
             manualData = {};
@@ -260,6 +274,7 @@ function setupEvents() {
     };
 
     document.getElementById('confirm-match').onclick = confirmMatch;
+    document.getElementById('cancel-match').onclick = cancelMatch;
 
     // --- Guide Events ---
     const guideModal = document.getElementById('guide-modal');

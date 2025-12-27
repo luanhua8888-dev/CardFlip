@@ -14,36 +14,26 @@
 <body>
     <div id="decoder-app">
         <!-- Modern Glass Header -->
-        <header class="glass-header">
-            <div class="logo-area">
-                <span class="logo-icon">💠</span>
-                <span class="logo-text">DECODER <span class="pro-badge">PRO</span></span>
+        <header class="smart-toolbar">
+            <div class="stepper-group">
+                <div class="stepper">
+                    <button onclick="changeGrid('rows', -1)">−</button>
+                    <div class="stepper-val"><span id="val-rows">2</span> Hàng</div>
+                    <button onclick="changeGrid('rows', 1)">+</button>
+                </div>
+                <div class="stepper">
+                    <button onclick="changeGrid('cols', -1)">−</button>
+                    <div class="stepper-val"><span id="val-cols">5</span> Cột</div>
+                    <button onclick="changeGrid('cols', 1)">+</button>
+                </div>
             </div>
 
-            <div class="controls-area">
-                <div class="input-field">
-                    <label>Hàng</label>
-                    <input type="number" id="grid-rows" value="2" min="1" max="10">
-                </div>
-                <div class="input-field">
-                    <label>Cột</label>
-                    <input type="number" id="grid-cols" value="5" min="1" max="10">
-                </div>
-                <button id="manage-icons-btn" class="btn-reset">
-                    <span class="icon">🎨</span> Card
-                </button>
-                <button id="help-btn" class="btn-reset" title="Cách làm bong bóng">
-                    <span class="icon">❓</span>
-                </button>
-                <button id="pip-mode-btn" class="btn-reset" title="Chế độ chỉ xem (PiP)">
-                    <span class="icon">📺</span>
-                </button>
-                <button id="mini-mode-btn" class="btn-reset" title="Chế độ bong bóng">
-                    <span class="icon">🫧</span>
-                </button>
-                <button id="global-reset" class="btn-reset">
-                    <span class="icon">🔄</span> Xoá
-                </button>
+            <div class="action-group">
+                <button id="manage-icons-btn" class="tool-btn" title="Quản lý Icon">🎨</button>
+                <button id="mini-mode-btn" class="tool-btn" title="Bong bóng">🫧</button>
+                <button id="pip-mode-btn" class="tool-btn" title="PiP Mode">📺</button>
+                <button id="help-btn" class="tool-btn" title="Hướng dẫn">❓</button>
+                <button id="global-reset" class="tool-btn reset" title="Xóa toàn bộ">🔄</button>
             </div>
         </header>
 
@@ -92,8 +82,11 @@
             <div class="match-glass-box">
                 <div class="match-particles"></div>
                 <div class="match-title">PHÁT HIỆN TRÙNG!</div>
-                <div class="match-cards-info" id="match-info">Thẻ 1 & Thẻ 6</div>
-                <button id="confirm-match" class="btn-confirm">XÁC NHẬN ĂN CẶP</button>
+                <p id="match-info">Thẻ 1 & Thẻ 6</p>
+                <div class="match-actions">
+                    <button id="confirm-match" class="btn-confirm">XÁC NHẬN</button>
+                    <button id="cancel-match" class="btn-cancel">HUỶ</button>
+                </div>
             </div>
         </div>
 
@@ -103,6 +96,8 @@
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/tracking.js"></script>
     <script src="js/game.js"></script>
 </body>
 
