@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Match Decoder Pro - Frost Horizon</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="decoder-app">
+        <!-- Modern Glass Header -->
+        <header class="glass-header">
+            <div class="logo-area">
+                <span class="logo-icon">💠</span>
+                <span class="logo-text">DECODER <span class="pro-badge">PRO</span></span>
+            </div>
+
+            <div class="controls-area">
+                <div class="input-field">
+                    <label>Hàng</label>
+                    <input type="number" id="grid-rows" value="2" min="1" max="10">
+                </div>
+                <div class="input-field">
+                    <label>Cột</label>
+                    <input type="number" id="grid-cols" value="5" min="1" max="10">
+                </div>
+                <button id="manage-icons-btn" class="btn-reset">
+                    <span class="icon">🎨</span> Card
+                </button>
+                <button id="mini-mode-btn" class="btn-reset" title="Chế độ bong bóng">
+                    <span class="icon">🫧</span>
+                </button>
+                <button id="global-reset" class="btn-reset">
+                    <span class="icon">🔄</span> Xoá
+                </button>
+            </div>
+        </header>
+
+        <!-- Dynamic Modal for Icon Management -->
+        <div id="icon-modal" class="overlay hidden">
+            <div class="match-glass-box icon-manager">
+                <h2>QUẢN LÝ BIỂU TƯỢNG</h2>
+                <div id="icon-list-container" class="icon-grid-scroll">
+                    <!-- Icons will be listed here -->
+                </div>
+                <div class="add-new-icon">
+                    <input type="text" id="new-icon-emoji" placeholder="Dán Emoji hoặc tên..." maxlength="2">
+                    <button id="add-icon-confirm" class="btn-confirm" style="margin-top:0; width: auto;">THÊM
+                        MỚI</button>
+                </div>
+                <button id="close-modal" class="btn-secondary" style="margin-top:15px;">ĐÓNG</button>
+            </div>
+        </div>
+
+        <!-- Main Decoder Board -->
+        <main id="game-board">
+            <!-- Dynamic Cards -->
+        </main>
+
+        <!-- Premium Match Overlay -->
+        <div id="match-overlay" class="overlay hidden">
+            <div class="match-glass-box">
+                <div class="match-particles"></div>
+                <div class="match-title">PHÁT HIỆN TRÙNG!</div>
+                <div class="match-cards-info" id="match-info">Thẻ 1 & Thẻ 6</div>
+                <button id="confirm-match" class="btn-confirm">XÁC NHẬN ĂN CẶP</button>
+            </div>
+        </div>
+
+        <!-- Floating Type Selector -->
+        <div id="type-selector" class="type-selector-panel hidden">
+            <!-- Icons injected via JS -->
+        </div>
+    </div>
+
+    <script src="js/game.js"></script>
+</body>
+
+</html>
