@@ -276,6 +276,82 @@ function setupEvents() {
         setupBoard(); // Redraw to adjust to tiny squares
     };
 
+    // --- PiP Vision (Floating Bubble Hack) ---
+    document.getElementById('pip-mode-btn').onclick = async () => {
+        try {
+            // Tạo canvas để vẽ trạng thái bàn bài
+            const canvas = document.createElement('canvas');
+            canvas.width = 400;
+            canvas.height = 300;
+            const ctx = canvas.getContext('2d');
+
+            // Hàm vẽ bàn bài lên canvas
+            const updateCanvas = () => {
+                ctx.fillStyle = '#0b0f19';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                const cards = document.querySelectorAll('.card');
+                const gap = 10;
+                const cardW = (canvas.width - (currentCols + 1) * gap) / currentCols;
+                const cardH = (canvas.height - (currentRows + 1) * gap) / currentRows;
+
+                cards.forEach((card, i) => {
+                    const r = Math.floor(i / currentCols);
+                    const c = i % currentCols;
+                    const x = gap + c * (cardW + gap);
+                    const y = gap + r * (cardH + gap);
+
+                    // Vẽ khung thẻ
+                    ctx.strokeStyle = card.classList.contains('recorded') ? '#00f2fe' : '#334155';
+                    ctx.lineWidth = 2;
+                    if (card.classList.contains('matched')) ctx.globalAlpha = 0.2;
+                    else ctx.globalAlpha = 1;
+
+                    ctx.strokeRect(x, y, cardW, cardH);
+
+                    // Vẽ số thứ tự
+                    ctx.fillStyle = '#4facfe';
+                    ctx.font = '12px Outfit';
+                    ctx.fillText(i + 1, x + 5, y + 15);
+
+                    // Vẽ Icon nếu có
+                    if (manualData[i]) {
+                        ctx.fillStyle = '#fff';
+                        ctx.font = '20px serif';
+                        ctx.fillText('✅', x + cardW / 2 - 10, y + cardH / 2 + 10);
+                    }
+                });
+            };
+
+            updateCanvas();
+
+            // Tạo luồng video từ canvas
+            const video = document.createElement('video');
+            video.muted = true;
+            video.srcObject = canvas.captureStream();
+            video.play();
+
+            video.onloadedmetadata = () => {
+                video.requestPictureInPicture().catch(err => {
+                    alert("Trình duyệt của bạn chưa hỗ trợ bong bóng PiP. Hãy dùng tính năng 'Cửa sổ nổi' của điện thoại!");
+                });
+            };
+
+            // Cập nhật canvas định kỳ
+            const timer = setInterval(() => {
+                if (document.pictureInPictureElement !== video) {
+                    clearInterval(timer);
+                    return;
+                }
+                updateCanvas();
+            }, 500);
+
+        } catch (e) {
+            console.error(e);
+            alert("Vui lòng dùng tính năng 'Cửa sổ nổi' (Floating Window) trên điện thoại để có hiệu quả tốt nhất!");
+        }
+    };
+
     // Click ra ngoài để đóng selector
     document.addEventListener('click', (e) => {
         const selector = document.getElementById('type-selector');
