@@ -8,7 +8,8 @@ async function trackPageView() {
     if (!supabase) return;
 
     try {
-        const { data, error } = await supabase
+        // 1. Lưu lượt truy cập mới
+        await supabase
             .from('page_views')
             .insert([
                 {
@@ -18,8 +19,15 @@ async function trackPageView() {
                 }
             ]);
 
-        if (error) console.error('Tracking Error:', error);
-        else console.log('Traffic Tracked ✅');
+        // 2. Lấy TỔNG số lượng lượt truy cập từ bảng
+        const { count, error } = await supabase
+            .from('page_views')
+            .select('*', { count: 'exact', head: true });
+
+        if (!error && count !== null) {
+            document.getElementById('visit-count').textContent = count;
+        }
+
     } catch (err) {
         console.error('Database connection failed:', err);
     }

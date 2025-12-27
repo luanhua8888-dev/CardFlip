@@ -85,6 +85,17 @@ body {
     padding: 0 5px;
 }
 
+.visitor-counter {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-left: 10px;
+    border-left: 1px solid var(--glass-border);
+    font-size: 0.9rem;
+    font-weight: 800;
+    color: var(--primary);
+}
+
 .action-group {
     display: flex;
     gap: 8px;
